@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Фарм BP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #000000;
+        --card: #0b0b0f;
+        --border: #1a1a22;
+        --accent: #6f8cff;
+        --text: #f2f2f2;
+        --muted: #8b8f9f;
+        --done: #111118;
+        --fav: #ffd166;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Geist", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 32px 16px;
+      }
+      h1 {
+        margin: 0 0 20px;
+        text-align: center;
+        font-weight: 600;
+      }
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      button {
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      button.active {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .list {
+        max-width: 620px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .task {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        background: var(--card);
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        transition: opacity 0.2s, background 0.2s;
+      }
+      .task.done {
+        opacity: 0.4;
+        background: var(--done);
+      }
+      .fav {
+        font-size: 18px;
+        cursor: pointer;
+        color: var(--muted);
+        user-select: none;
+      }
+      .fav.active {
+        color: var(--fav);
+      }
+      .title {
+        cursor: pointer;
+        font-weight: 500;
+      }
+      .bp {
+        color: var(--accent);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .counter {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .counter button {
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+      .progress {
+        font-size: 12px;
+        color: var(--muted);
+        min-width: 42px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <button id="toggleFav">Показать избранные</button>
+      <button id="newDay">Начать новый день</button>
+    </div>
+
+    <div class="list" id="list"></div>
+
+    <script>
+      const STORAGE_KEY = "tasks_state_v2";
+      const FILTER_KEY = "tasks_filter_fav";
+
+      let showFavOnly = JSON.parse(localStorage.getItem(FILTER_KEY)) || false;
+      let tasks = [];
+      let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
+      toggleFav.classList.toggle("active", showFavOnly);
+
+      fetch("tasks.json")
+        .then((r) => r.json())
+        .then((data) => init(data));
+
+      function init(defaultTasks) {
+        tasks = defaultTasks.map((t) => {
+          const saved = state[t.id] || {};
+          return {
+            ...t,
+            done: saved.done || false,
+            fav: saved.fav || false,
+            current: saved.current || 0,
+          };
+        });
+        render();
+      }
+
+      function save() {
+        state = {};
+        tasks.forEach((t) => {
+          state[t.id] = {
+            done: t.done,
+            fav: t.fav,
+            current: t.current,
+          };
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      function render() {
+        list.innerHTML = "";
+        tasks
+          .filter((t) => !showFavOnly || t.fav)
+          .forEach((task, index) => {
+            const el = document.createElement("div");
+            el.className = "task" + (task.done ? " done" : "");
+            el.draggable = true;
+            el.dataset.index = index;
+
+            el.onclick = () => {
+              task.done = !task.done;
+              save();
+              render();
+            };
+
+            el.addEventListener("dragstart", (e) => {
+              el.classList.add("dragging");
+              e.dataTransfer.setData("text/plain", index);
+            });
+
+            el.addEventListener("dragend", () => {
+              el.classList.remove("dragging");
+            });
+
+            el.addEventListener("dragover", (e) => {
+              e.preventDefault();
+            });
+
+            el.addEventListener("drop", (e) => {
+              e.preventDefault();
+              const from = Number(e.dataTransfer.getData("text/plain"));
+              const to = Number(el.dataset.index);
+              if (from === to) return;
+
+              const moved = tasks.splice(from, 1)[0];
+              tasks.splice(to, 0, moved);
+              save();
+              render();
+            });
+
+            const fav = document.createElement("div");
+            fav.className = "fav" + (task.fav ? " active" : "");
+            fav.textContent = "★";
+            fav.onclick = (e) => {
+              e.stopPropagation();
+              task.fav = !task.fav;
+              save();
+              render();
+            };
+
+            const title = document.createElement("div");
+            title.className = "title";
+            title.textContent = task.title;
+
+            const bp = document.createElement("div");
+            bp.className = "bp";
+            bp.textContent = `+${task.bp} BP`;
+
+            const counterWrap = document.createElement("div");
+            if (task.steps) {
+              counterWrap.className = "counter";
+
+              const minus = document.createElement("button");
+              minus.textContent = "-";
+              minus.onclick = (e) => {
+                e.stopPropagation();
+                task.current = Math.max(0, task.current - 1);
+                save();
+                render();
+              };
+
+              const plus = document.createElement("button");
+              plus.textContent = "+";
+              plus.onclick = (e) => {
+                e.stopPropagation();
+                task.current = Math.min(task.steps, task.current + 1);
+                save();
+                render();
+              };
+
+              const prog = document.createElement("div");
+              prog.className = "progress";
+              prog.textContent = `${task.current}/${task.steps}`;
+
+              counterWrap.append(minus, prog, plus);
+            }
+
+            el.append(fav, title, bp, counterWrap);
+            list.appendChild(el);
+          });
+      }
+
+      toggleFav.onclick = () => {
+        showFavOnly = !showFavOnly;
+        localStorage.setItem(FILTER_KEY, JSON.stringify(showFavOnly));
+        toggleFav.classList.toggle("active", showFavOnly);
+        render();
+      };
+
+      newDay.onclick = () => {
+        if (!confirm("Начать новый день?")) return;
+        tasks.forEach((t) => {
+          t.done = false;
+          t.current = 0;
+        });
+        save();
+        render();
+      };
+    </script>
+  </body>
+</html>
