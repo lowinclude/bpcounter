@@ -5,7 +5,7 @@
     <title>Фарм BP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
     <link
       href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
       rel="stylesheet"
@@ -123,10 +123,12 @@
     <script>
       const STORAGE_KEY = "tasks_state_v2";
       const FILTER_KEY = "tasks_filter_fav";
+      const ORDER_KEY = "tasks_order_v2";
 
       let showFavOnly = JSON.parse(localStorage.getItem(FILTER_KEY)) || false;
       let tasks = [];
       let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      let savedOrder = JSON.parse(localStorage.getItem(ORDER_KEY)) || [];
 
       toggleFav.classList.toggle("active", showFavOnly);
 
@@ -135,7 +137,8 @@
         .then((data) => init(data));
 
       function init(defaultTasks) {
-        tasks = defaultTasks.map((t) => {
+        // применяем сохранённое состояние
+        let prepared = defaultTasks.map((t) => {
           const saved = state[t.id] || {};
           return {
             ...t,
@@ -144,6 +147,15 @@
             current: saved.current || 0,
           };
         });
+
+        // восстанавливаем порядок
+        if (savedOrder.length) {
+          prepared.sort(
+            (a, b) => savedOrder.indexOf(a.id) - savedOrder.indexOf(b.id)
+          );
+        }
+
+        tasks = prepared;
         render();
       }
 
@@ -156,18 +168,21 @@
             current: t.current,
           };
         });
+
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(ORDER_KEY, JSON.stringify(tasks.map((t) => t.id)));
       }
 
       function render() {
         list.innerHTML = "";
+
         tasks
           .filter((t) => !showFavOnly || t.fav)
-          .forEach((task, index) => {
+          .forEach((task) => {
             const el = document.createElement("div");
             el.className = "task" + (task.done ? " done" : "");
             el.draggable = true;
-            el.dataset.index = index;
+            el.dataset.id = task.id;
 
             el.onclick = () => {
               task.done = !task.done;
@@ -176,12 +191,7 @@
             };
 
             el.addEventListener("dragstart", (e) => {
-              el.classList.add("dragging");
-              e.dataTransfer.setData("text/plain", index);
-            });
-
-            el.addEventListener("dragend", () => {
-              el.classList.remove("dragging");
+              e.dataTransfer.setData("text/plain", task.id);
             });
 
             el.addEventListener("dragover", (e) => {
@@ -190,12 +200,17 @@
 
             el.addEventListener("drop", (e) => {
               e.preventDefault();
-              const from = Number(e.dataTransfer.getData("text/plain"));
-              const to = Number(el.dataset.index);
-              if (from === to) return;
 
-              const moved = tasks.splice(from, 1)[0];
-              tasks.splice(to, 0, moved);
+              const fromId = e.dataTransfer.getData("text/plain");
+              const toId = el.dataset.id;
+              if (!fromId || fromId === toId) return;
+
+              const fromIndex = tasks.findIndex((t) => t.id == fromId);
+              const toIndex = tasks.findIndex((t) => t.id == toId);
+
+              const moved = tasks.splice(fromIndex, 1)[0];
+              tasks.splice(toIndex, 0, moved);
+
               save();
               render();
             });
