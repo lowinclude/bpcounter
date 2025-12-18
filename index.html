@@ -2,10 +2,10 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Фарм BP + Категории V2.1</title>
+    <title>Фарм BP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link
       href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
       rel="stylesheet"
@@ -16,15 +16,22 @@
         --card: #202020;
         --border: #383838;
         --accent: #ff7a2f;
-        --text: #F7F7F7;
+        --text: #f7f7f7;
         --muted: #8b8f9f;
         --done: #111111;
-        --fav: #FFEB3B;
+        --fav: #ffeb3b;
         --cat-header-bg: #181818;
         --bp-color: #4ade80;
+        --danger: #ff4d4d;
       }
       * {
         box-sizing: border-box;
+      }
+
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
       body {
         margin: 0;
@@ -38,20 +45,98 @@
         text-align: center;
         font-weight: 600;
       }
+
+      /* --- CONTROLS SECTION --- */
+      .controls-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+        align-items: center;
+      }
+
+      /* Верхний ряд: BP калькулятор */
+      .bp-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        background: #111;
+        padding: 12px;
+        border: 1px solid var(--border);
+      }
+
+      .bp-input-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .bp-input {
+        background: #000;
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 6px 8px;
+        width: 80px;
+        height: 34px;
+        font-family: inherit;
+        text-align: center;
+      }
+      .bp-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .add-bp-btn {
+        background: var(--bp-color);
+        color: #000;
+        font-weight: bold;
+        border: none;
+      }
+      .add-bp-btn:hover {
+        opacity: 0.9;
+      }
+
+      /* Стиль для новой кнопки сброса */
+      .reset-bp-btn {
+        background: rgba(255, 77, 77, 0.1);
+        color: var(--danger);
+        border: 1px solid var(--danger);
+        font-weight: bold;
+        padding: 6px 10px;
+        min-width: 36px;
+      }
+      .reset-bp-btn:hover {
+        background: var(--danger);
+        color: #fff;
+      }
+
+      .total-bp-badge {
+        background: rgba(74, 222, 128, 0.1);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        color: var(--bp-color);
+        padding: 8px 16px;
+        font-weight: 600;
+        font-size: 16px;
+        min-width: 120px;
+        text-align: center;
+      }
+
+      /* Нижний ряд: Управление */
       .controls {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 12px;
-        margin-bottom: 24px;
         flex-wrap: wrap;
       }
+
       button {
         background: var(--card);
         color: var(--text);
         border: 1px solid var(--border);
         padding: 8px 16px;
-        /* border-radius: 10px; */
         cursor: pointer;
         transition: 0.2s;
         font-family: inherit;
@@ -63,20 +148,13 @@
       button.active {
         border-color: var(--accent);
         color: var(--accent);
-        background: rgba(120,71,56,.33);
+        background: rgba(255, 122, 47, 0.15);
       }
-      
-      .total-bp-badge {
-        background: rgba(74, 222, 128, 0.1);
-        border: 1px solid rgba(74, 222, 128, 0.3);
-        color: var(--bp-color);
-        padding: 8px 16px;
-        /* border-radius: 10px; */
-        font-weight: 600;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+
+      #toggleX2.active {
+        border-color: #ff0055;
+        color: #ff0055;
+        background: rgba(255, 0, 85, 0.15);
       }
 
       .board {
@@ -89,13 +167,12 @@
 
       .category {
         background: #050507;
-        /* border-radius: 16px; */
         border: 1px solid var(--border);
         overflow: hidden;
         display: flex;
         flex-direction: column;
       }
-      
+
       .category-header {
         padding: 1rem;
         background: var(--cat-header-bg);
@@ -128,19 +205,19 @@
         gap: 12px;
         padding: 12px 14px;
         background: var(--card);
-        /* border-radius: 10px; */
         border: 1px solid var(--border);
         transition: opacity 0.2s, background 0.2s;
         cursor: grab;
+        position: relative;
       }
       .task:active {
         cursor: grabbing;
       }
       .task.done {
-        opacity: 0.4;
-        background: var(--done);
+        opacity: 0.5;
+        filter: grayscale(0.8);
       }
-      
+
       .fav {
         font-size: 18px;
         cursor: pointer;
@@ -150,24 +227,42 @@
       .fav.active {
         color: var(--fav);
       }
-      
+
       .content-area {
         display: flex;
         flex-direction: column;
         gap: 6px;
       }
-      
+
       .title {
         cursor: pointer;
         font-weight: 500;
         line-height: 1.4;
       }
-      
+
+      /* Color Picker Styles */
+      .color-picker {
+        display: flex;
+        gap: 6px;
+        margin-top: 6px;
+      }
+      .color-swatch {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.1s;
+      }
+      .color-swatch:hover {
+        transform: scale(1.1);
+        border-color: #fff;
+      }
+
       .cat-select {
         background: #000;
         color: var(--muted);
         border: 1px solid var(--border);
-        padding: 8px;
+        padding: 6px;
         font-size: 12px;
         outline: none;
         width: 100%;
@@ -192,7 +287,6 @@
       }
       .counter button {
         padding: 2px 8px;
-        /* border-radius: 6px; */
         font-size: 14px;
       }
       .progress {
@@ -211,60 +305,116 @@
         background: var(--accent);
         border-radius: 2px;
         margin: 4px 0;
-        pointer-events: none; 
+        pointer-events: none;
         box-shadow: 0 0 10px rgba(111, 140, 255, 0.4);
         animation: fadeIn 0.2s ease;
       }
 
       @keyframes fadeIn {
-        from { opacity: 0; transform: scaleX(0.8); }
-        to { opacity: 1; transform: scaleX(1); }
+        from {
+          opacity: 0;
+          transform: scaleX(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scaleX(1);
+        }
       }
     </style>
   </head>
   <body>
-    <div class="controls">
-      <div id="totalBp" class="total-bp-badge">BP: 0</div>
-      
-      <button id="toggleFav">★ Избранное</button>
-      <button id="toggleEdit">✎ Редактировать</button>
-      <button id="newDay">↺ Новый день</button>
-      <button id="addCatBtn">+ Категория</button>
+    <div class="controls-wrapper">
+      <div class="bp-controls">
+        <div class="bp-input-group">
+          <input
+            type="number"
+            id="startBpInput"
+            class="bp-input"
+            placeholder="0"
+          />
+        </div>
+
+        <button id="removeManualBpBtn" class="add-bp-btn">-4 BP</button>
+        <button id="addManualBpBtn" class="add-bp-btn">+4 BP</button>
+
+        <button
+          id="resetManualBtn"
+          class="reset-bp-btn"
+          title="Сбросить только счетчик"
+        >
+          🗑
+        </button>
+
+        <div id="totalBp" class="total-bp-badge">BP: 0</div>
+      </div>
+
+      <div class="controls">
+        <button id="toggleX2">X2</button>
+        <button id="toggleFav">★ Избранное</button>
+        <button id="toggleEdit">✎ Редактировать</button>
+        <button id="newDay">↺ Новый день</button>
+        <button id="addCatBtn">+ Категория</button>
+      </div>
     </div>
 
     <div class="board" id="board"></div>
 
     <script>
-      const STORAGE_KEY = "tasks_state_v4"; 
+      const STORAGE_KEY = "tasks_state_v6";
       const FILTER_KEY = "tasks_filter_fav";
       const CAT_KEY = "tasks_categories_v1";
 
-      let showFavOnly = JSON.parse(localStorage.getItem(FILTER_KEY)) || false;
-      let isEditMode = false;
-      
-      let tasks = [];
-      let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-      let categories = JSON.parse(localStorage.getItem(CAT_KEY)) || [
-        { id: "default", title: "Общие задания" }
+      const COLOR_PALETTE = [
+        "#202020",
+        "#3a1d1d",
+        "#1d263a",
+        "#1d3a20",
+        "#3a341d",
       ];
 
-      const dropLine = document.createElement('div');
-      dropLine.className = 'drop-line';
+      let showFavOnly = JSON.parse(localStorage.getItem(FILTER_KEY)) || false;
+      let isEditMode = false;
 
-      const toggleFavBtn = document.getElementById('toggleFav');
-      const toggleEditBtn = document.getElementById('toggleEdit');
-      const totalBpEl = document.getElementById('totalBp');
-      
+      let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
+      let isX2Mode = state.isX2Mode || false;
+
+      let tasks = [];
+      let initialBp = state.initialBp || 0;
+      let manualBp = state.manualBp || 0;
+
+      let categories = JSON.parse(localStorage.getItem(CAT_KEY)) || [
+        { id: "default", title: "Общие задания" },
+      ];
+
+      const dropLine = document.createElement("div");
+      dropLine.className = "drop-line";
+
+      const toggleFavBtn = document.getElementById("toggleFav");
+      const toggleEditBtn = document.getElementById("toggleEdit");
+      const toggleX2Btn = document.getElementById("toggleX2");
+      const totalBpEl = document.getElementById("totalBp");
+      const startBpInput = document.getElementById("startBpInput");
+      const addManualBpBtn = document.getElementById("addManualBpBtn");
+      const removeManualBpBtn = document.getElementById("removeManualBpBtn");
+      const resetManualBtn = document.getElementById("resetManualBtn");
+      const addCatBtn = document.getElementById("addCatBtn");
+      const newDay = document.getElementById("newDay");
+
       toggleFavBtn.classList.toggle("active", showFavOnly);
+      startBpInput.value = initialBp > 0 ? initialBp : "";
+
+      toggleX2Btn.classList.toggle("active", isX2Mode);
+      updateManualButtonsText();
 
       fetch("tasks.json")
         .then((r) => r.json())
         .then((data) => init(data))
         .catch(() => {
-            init([
-                {id: 1, title: "Проверка", bp: 100}, 
-                {id: 2, title: "Проверка", bp: 50, steps: 3}
-            ]);
+          init([
+            { id: 1, title: "Вход в игру", bp: 50 },
+            { id: 2, title: "Сыграть матч", bp: 100, steps: 3 },
+          ]);
         });
 
       function init(defaultTasks) {
@@ -276,12 +426,15 @@
             fav: saved.fav || false,
             current: saved.current || 0,
             categoryId: saved.categoryId || "default",
+            color: saved.color || COLOR_PALETTE[0],
           };
         });
 
         const savedOrder = state._globalOrder || [];
         if (savedOrder.length) {
-            prepared.sort((a, b) => savedOrder.indexOf(a.id) - savedOrder.indexOf(b.id));
+          prepared.sort(
+            (a, b) => savedOrder.indexOf(a.id) - savedOrder.indexOf(b.id)
+          );
         }
 
         tasks = prepared;
@@ -289,29 +442,77 @@
       }
 
       function save() {
-        const newState = {};
+        const newState = {
+          initialBp: parseInt(startBpInput.value) || 0,
+          manualBp: manualBp,
+          isX2Mode: isX2Mode,
+        };
+
         tasks.forEach((t) => {
           newState[t.id] = {
             done: t.done,
             fav: t.fav,
             current: t.current,
             categoryId: t.categoryId,
+            color: t.color,
           };
         });
-        newState._globalOrder = tasks.map(t => t.id);
+        newState._globalOrder = tasks.map((t) => t.id);
 
         state = newState;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         localStorage.setItem(CAT_KEY, JSON.stringify(categories));
       }
 
+      function updateManualButtonsText() {
+        addManualBpBtn.textContent = isX2Mode ? "+8 BP" : "+4 BP";
+        removeManualBpBtn.textContent = isX2Mode ? "-8 BP" : "-4 BP";
+      }
+
+      startBpInput.addEventListener("input", () => {
+        initialBp = parseInt(startBpInput.value) || 0;
+        save();
+        render();
+      });
+
+      addManualBpBtn.onclick = () => {
+        const amount = isX2Mode ? 8 : 4;
+        manualBp += amount;
+        save();
+        render();
+      };
+
+      removeManualBpBtn.onclick = () => {
+        const amount = isX2Mode ? 8 : 4;
+        manualBp -= amount;
+        save();
+        render();
+      };
+
+      resetManualBtn.onclick = () => {
+        if (manualBp === 0) return;
+        if (confirm("Сбросить ручной счетчик BP?")) {
+          manualBp = 0;
+          save();
+          render();
+        }
+      };
+
+      toggleX2Btn.onclick = () => {
+        isX2Mode = !isX2Mode;
+        toggleX2Btn.classList.toggle("active", isX2Mode);
+        updateManualButtonsText();
+        save();
+        render();
+      };
+
       addCatBtn.onclick = () => {
         const title = prompt("Название новой категории:");
         if (title) {
-            const id = "cat_" + Date.now();
-            categories.push({ id, title });
-            save();
-            render();
+          const id = "cat_" + Date.now();
+          categories.push({ id, title });
+          save();
+          render();
         }
       };
 
@@ -329,89 +530,111 @@
       };
 
       newDay.onclick = () => {
-        if (!confirm("Сбросить прогресс за день?")) return;
+        if (
+          !confirm(
+            "Сбросить ежедневный прогресс?\n(Очистит выполненные задачи и ручной счетчик)"
+          )
+        )
+          return;
         tasks.forEach((t) => {
           t.done = false;
           t.current = 0;
         });
+        manualBp = 0;
         save();
         render();
       };
 
-      function render() {
-        if(dropLine.parentNode) dropLine.parentNode.removeChild(dropLine);
-        
-        const total = tasks.reduce((acc, t) => {
-            return t.done ? acc + (t.bp || 0) : acc;
-        }, 0);
-        totalBpEl.textContent = `Получено BP: ${total}`;
 
-        const board = document.getElementById('board');
+      function render() {
+        if (dropLine.parentNode) dropLine.parentNode.removeChild(dropLine);
+
+        const taskTotal = tasks.reduce((acc, t) => {
+          const multiplier = isX2Mode ? 2 : 1;
+          return t.done ? acc + (t.bp || 0) * multiplier : acc;
+        }, 0);
+
+        const grandTotal =
+          (parseInt(startBpInput.value) || 0) + manualBp + taskTotal;
+
+        totalBpEl.textContent = `Итого: ${grandTotal}`;
+
+        const board = document.getElementById("board");
         board.innerHTML = "";
 
-        categories.forEach(cat => {
-            const catEl = document.createElement("div");
-            catEl.className = "category";
-            catEl.dataset.catId = cat.id;
-            catEl.draggable = true; 
+        categories.forEach((cat) => {
+          const catEl = document.createElement("div");
+          catEl.className = "category";
+          catEl.dataset.catId = cat.id;
+          catEl.draggable = true;
 
-            const header = document.createElement("div");
-            header.className = "category-header";
-            
-            const titleSpan = document.createElement("span");
-            titleSpan.textContent = cat.title;
-            header.appendChild(titleSpan);
+          const header = document.createElement("div");
+          header.className = "category-header";
 
-            if(isEditMode && cat.id !== 'default') {
-                const delBtn = document.createElement('button');
-                delBtn.textContent = '×';
-                delBtn.style.padding = '2px 6px';
-                delBtn.style.fontSize = '12px';
-                delBtn.style.background = 'transparent';
-                delBtn.style.borderColor = '#ff4d4d';
-                delBtn.style.color = '#ff4d4d';
-                delBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    if(confirm('Удалить категорию? Задачи переместятся в "Общие".')) {
-                        tasks.forEach(t => { if(t.categoryId === cat.id) t.categoryId = 'default'; });
-                        categories = categories.filter(c => c.id !== cat.id);
-                        save();
-                        render();
-                    }
-                }
-                header.appendChild(delBtn);
-            }
+          const titleSpan = document.createElement("span");
+          titleSpan.textContent = cat.title;
+          header.appendChild(titleSpan);
 
-            const listEl = document.createElement("div");
-            listEl.className = "task-list";
-            listEl.dataset.catId = cat.id;
+          if (isEditMode && cat.id !== "default") {
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "×";
+            delBtn.style.padding = "2px 6px";
+            delBtn.style.fontSize = "12px";
+            delBtn.style.background = "transparent";
+            delBtn.style.borderColor = "#ff4d4d";
+            delBtn.style.color = "#ff4d4d";
+            delBtn.onclick = (e) => {
+              e.stopPropagation();
+              if (
+                confirm('Удалить категорию? Задачи переместятся в "Общие".')
+              ) {
+                tasks.forEach((t) => {
+                  if (t.categoryId === cat.id) t.categoryId = "default";
+                });
+                categories = categories.filter((c) => c.id !== cat.id);
+                save();
+                render();
+              }
+            };
+            header.appendChild(delBtn);
+          }
 
-            const catTasks = tasks.filter(t => t.categoryId === cat.id);
-            const visibleTasks = catTasks.filter(t => !showFavOnly || t.fav);
+          const listEl = document.createElement("div");
+          listEl.className = "task-list";
+          listEl.dataset.catId = cat.id;
 
-            visibleTasks.forEach(task => {
-                const el = createTaskElement(task);
-                listEl.appendChild(el);
-            });
+          const catTasks = tasks.filter((t) => t.categoryId === cat.id);
+          const visibleTasks = catTasks.filter((t) => !showFavOnly || t.fav);
 
-            listEl.addEventListener("dragover", e => handleDragOverTask(e, listEl));
-            listEl.addEventListener("dragleave", e => handleDragLeaveTask(e, listEl));
-            listEl.addEventListener("drop", (e) => handleDropTask(e, cat.id, listEl));
+          visibleTasks.forEach((task) => {
+            const el = createTaskElement(task);
+            listEl.appendChild(el);
+          });
 
-            catEl.addEventListener("dragstart", (e) => {
-                if (e.target.closest('.task')) return;
-                e.dataTransfer.setData("type", "category");
-                e.dataTransfer.setData("catId", cat.id);
-            });
-            
-            catEl.addEventListener("dragover", e => {
-                 if (isDraggingCategory) e.preventDefault(); 
-            });
-            
-            catEl.addEventListener("drop", e => handleDropCategory(e, cat.id));
+          listEl.addEventListener("dragover", (e) =>
+            handleDragOverTask(e, listEl)
+          );
+          listEl.addEventListener("dragleave", (e) =>
+            handleDragLeaveTask(e, listEl)
+          );
+          listEl.addEventListener("drop", (e) =>
+            handleDropTask(e, cat.id, listEl)
+          );
 
-            catEl.append(header, listEl);
-            board.appendChild(catEl);
+          catEl.addEventListener("dragstart", (e) => {
+            if (e.target.closest(".task")) return;
+            e.dataTransfer.setData("type", "category");
+            e.dataTransfer.setData("catId", cat.id);
+          });
+
+          catEl.addEventListener("dragover", (e) => {
+            if (isDraggingCategory) e.preventDefault();
+          });
+
+          catEl.addEventListener("drop", (e) => handleDropCategory(e, cat.id));
+
+          catEl.append(header, listEl);
+          board.appendChild(catEl);
         });
       }
 
@@ -421,11 +644,20 @@
         el.draggable = !isEditMode;
         el.dataset.id = task.id;
 
+        if (task.color && task.color !== COLOR_PALETTE[0]) {
+          el.style.background = task.color;
+        }
+
         el.onclick = (e) => {
-            if(e.target.tagName === 'SELECT') return;
-            task.done = !task.done;
-            save();
-            render();
+          if (
+            e.target.tagName === "SELECT" ||
+            e.target.closest(".color-picker") ||
+            e.target.tagName === "BUTTON"
+          )
+            return;
+          task.done = !task.done;
+          save();
+          render();
         };
 
         el.addEventListener("dragstart", (e) => {
@@ -434,10 +666,10 @@
           e.dataTransfer.setData("taskId", task.id);
           el.classList.add("dragging");
         });
-        
+
         el.addEventListener("dragend", () => {
-            el.classList.remove("dragging");
-            if(dropLine.parentNode) dropLine.parentNode.removeChild(dropLine);
+          el.classList.remove("dragging");
+          if (dropLine.parentNode) dropLine.parentNode.removeChild(dropLine);
         });
 
         const fav = document.createElement("div");
@@ -459,31 +691,49 @@
         contentArea.appendChild(title);
 
         if (isEditMode) {
-            const select = document.createElement('select');
-            select.className = 'cat-select';
-            select.onclick = (e) => e.stopPropagation();
-            
-            categories.forEach(cat => {
-                const opt = document.createElement('option');
-                opt.value = cat.id;
-                opt.textContent = cat.title;
-                if(cat.id === task.categoryId) opt.selected = true;
-                select.appendChild(opt);
-            });
+          const select = document.createElement("select");
+          select.className = "cat-select";
+          select.onclick = (e) => e.stopPropagation();
+          categories.forEach((cat) => {
+            const opt = document.createElement("option");
+            opt.value = cat.id;
+            opt.textContent = cat.title;
+            if (cat.id === task.categoryId) opt.selected = true;
+            select.appendChild(opt);
+          });
+          select.onchange = (e) => {
+            task.categoryId = e.target.value;
+            save();
+            render();
+          };
+          contentArea.appendChild(select);
 
-            select.onchange = (e) => {
-                task.categoryId = e.target.value;
-                tasks = tasks.filter(t => t.id !== task.id); 
-                tasks.push(task); 
-                save();
-                render();
+          const pickerDiv = document.createElement("div");
+          pickerDiv.className = "color-picker";
+
+          COLOR_PALETTE.forEach((color) => {
+            const swatch = document.createElement("div");
+            swatch.className = "color-swatch";
+            swatch.style.backgroundColor = color;
+            if (task.color === color) {
+              swatch.style.borderColor = "#fff";
+              swatch.style.transform = "scale(1.1)";
+            }
+            swatch.onclick = (e) => {
+              e.stopPropagation();
+              task.color = color;
+              save();
+              render();
             };
-            contentArea.appendChild(select);
+            pickerDiv.appendChild(swatch);
+          });
+          contentArea.appendChild(pickerDiv);
         }
 
         const bp = document.createElement("div");
         bp.className = "bp";
-        bp.textContent = `+${task.bp} BP`;
+        const displayBp = isX2Mode ? task.bp * 2 : task.bp;
+        bp.textContent = `+${displayBp} BP`;
 
         const counterWrap = document.createElement("div");
         if (task.steps) {
@@ -515,60 +765,58 @@
       }
 
       let isDraggingCategory = false;
-      document.addEventListener('dragstart', (e) => {
-          if (e.target.classList && e.target.classList.contains('category')) {
-              isDraggingCategory = true;
-          }
+      document.addEventListener("dragstart", (e) => {
+        if (e.target.classList && e.target.classList.contains("category")) {
+          isDraggingCategory = true;
+        }
       });
-      document.addEventListener('dragend', () => isDraggingCategory = false);
-
+      document.addEventListener("dragend", () => (isDraggingCategory = false));
 
       function handleDragOverTask(e, listEl) {
         e.preventDefault();
-        if(isDraggingCategory) return;
+        if (isDraggingCategory) return;
 
         const afterElement = getDragAfterElement(listEl, e.clientY);
-        
+
         const currentNext = dropLine.nextElementSibling;
         if (dropLine.parentNode === listEl && currentNext === afterElement) {
-            return; 
+          return;
         }
 
         if (afterElement == null) {
-            listEl.appendChild(dropLine);
+          listEl.appendChild(dropLine);
         } else {
-            listEl.insertBefore(dropLine, afterElement);
+          listEl.insertBefore(dropLine, afterElement);
         }
       }
 
-      function handleDragLeaveTask(e, listEl) {
-      }
+      function handleDragLeaveTask(e, listEl) {}
 
       function handleDropTask(e, targetCatId, listEl) {
         e.preventDefault();
-        
-        if(dropLine.parentNode) dropLine.parentNode.removeChild(dropLine);
+
+        if (dropLine.parentNode) dropLine.parentNode.removeChild(dropLine);
 
         const type = e.dataTransfer.getData("type");
         if (type !== "task") return;
 
         const taskId = e.dataTransfer.getData("taskId");
-        const taskIndex = tasks.findIndex(t => t.id == taskId);
+        const taskIndex = tasks.findIndex((t) => t.id == taskId);
         if (taskIndex < 0) return;
         const movedTask = tasks[taskIndex];
 
         const afterElement = getDragAfterElement(listEl, e.clientY);
 
         tasks.splice(taskIndex, 1);
-        
+
         movedTask.categoryId = targetCatId;
 
         if (afterElement == null) {
-            tasks.push(movedTask);
+          tasks.push(movedTask);
         } else {
-            const afterId = afterElement.dataset.id;
-            const afterIndex = tasks.findIndex(t => t.id == afterId);
-            tasks.splice(afterIndex, 0, movedTask);
+          const afterId = afterElement.dataset.id;
+          const afterIndex = tasks.findIndex((t) => t.id == afterId);
+          tasks.splice(afterIndex, 0, movedTask);
         }
 
         save();
@@ -576,30 +824,35 @@
       }
 
       function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll('.task:not(.dragging)')];
+        const draggableElements = [
+          ...container.querySelectorAll(".task:not(.dragging)"),
+        ];
 
-        return draggableElements.reduce((closest, child) => {
+        return draggableElements.reduce(
+          (closest, child) => {
             const box = child.getBoundingClientRect();
             const offset = y - box.top - box.height / 2;
-            
+
             if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
+              return { offset: offset, element: child };
             } else {
-                return closest;
+              return closest;
             }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
+          },
+          { offset: Number.NEGATIVE_INFINITY }
+        ).element;
       }
 
       function handleDropCategory(e, targetCatId) {
         e.preventDefault();
         const type = e.dataTransfer.getData("type");
         if (type !== "category") return;
-        
+
         const draggedCatId = e.dataTransfer.getData("catId");
         if (draggedCatId === targetCatId) return;
 
-        const fromIndex = categories.findIndex(c => c.id === draggedCatId);
-        const toIndex = categories.findIndex(c => c.id === targetCatId);
+        const fromIndex = categories.findIndex((c) => c.id === draggedCatId);
+        const toIndex = categories.findIndex((c) => c.id === targetCatId);
 
         const moved = categories.splice(fromIndex, 1)[0];
         categories.splice(toIndex, 0, moved);
