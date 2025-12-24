@@ -12,15 +12,15 @@
     />
     <style>
       :root {
-        --bg: #000000;
-        --card: #202020;
+        --bg: #1b1b1b;
+        --card: #262626;
         --border: #383838;
         --accent: #ff7a2f;
         --text: #f7f7f7;
         --muted: #8b8f9f;
         --done: #111111;
         --fav: #ffeb3b;
-        --cat-header-bg: #181818;
+        --cat-header-bg: #262626;
         --bp-color: #4ade80;
         --danger: #ff4d4d;
       }
@@ -46,7 +46,6 @@
         font-weight: 600;
       }
 
-      /* --- CONTROLS SECTION --- */
       .controls-wrapper {
         display: flex;
         flex-direction: column;
@@ -55,16 +54,17 @@
         align-items: center;
       }
 
-      /* Верхний ряд: BP калькулятор */
       .bp-controls {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         align-items: center;
         justify-content: center;
-        background: #111;
+        background: var(--card);
         padding: 12px;
         border: 1px solid var(--border);
+        border-top-color: var(--accent);
+        border-top-width: 3px;
       }
 
       .bp-input-group {
@@ -98,7 +98,6 @@
         opacity: 0.9;
       }
 
-      /* Стиль для новой кнопки сброса */
       .reset-bp-btn {
         background: rgba(255, 77, 77, 0.1);
         color: var(--danger);
@@ -123,7 +122,6 @@
         text-align: center;
       }
 
-      /* Нижний ряд: Управление */
       .controls {
         display: flex;
         justify-content: center;
@@ -166,7 +164,7 @@
       }
 
       .category {
-        background: #050507;
+        background: #1b1b1b;
         border: 1px solid var(--border);
         overflow: hidden;
         display: flex;
@@ -240,7 +238,6 @@
         line-height: 1.4;
       }
 
-      /* Color Picker Styles */
       .color-picker {
         display: flex;
         gap: 6px;
@@ -325,6 +322,8 @@
   <body>
     <div class="controls-wrapper">
       <div class="bp-controls">
+        <button id="removeManualBpBtn" class="add-bp-btn">-4 BP</button>
+
         <div class="bp-input-group">
           <input
             type="number"
@@ -334,7 +333,6 @@
           />
         </div>
 
-        <button id="removeManualBpBtn" class="add-bp-btn">-4 BP</button>
         <button id="addManualBpBtn" class="add-bp-btn">+4 BP</button>
 
         <button
@@ -544,7 +542,6 @@
         save();
         render();
       };
-
 
       function render() {
         if (dropLine.parentNode) dropLine.parentNode.removeChild(dropLine);
