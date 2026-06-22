@@ -27,6 +27,13 @@
     trophy: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>`,
     target: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>`,
     "calendar-check": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>`,
+    port: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10.189V14"></path><path d="M12 2v3"></path><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"></path><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76"></path><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path></svg>`,
+    zero: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"></rect><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"></path><path d="M6 18h.01"></path><path d="M10 14h.01"></path><path d="M15 6h.01"></path><path d="M18 9h.01"></path></svg>`,
+    stroika: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="8" rx="1"></rect><path d="M17 14v7"></path><path d="M7 14v7"></path><path d="M17 3v3"></path><path d="M7 3v3"></path><path d="M10 14 2.3 6.3"></path><path d="m14 6 7.7 7.7"></path><path d="m8 6 8 8"></path></svg>`,
+    shahta: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999"></path><path d="M15.973 4.027A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024"></path><path d="M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069"></path><path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z"></path></svg>`,
+    business: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"></rect><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"></path><path d="M6 18h.01"></path><path d="M10 14h.01"></path><path d="M15 6h.01"></path><path d="M18 9h.01"></path></svg>`,
+    gym: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"></path><path d="m2.5 21.5 1.4-1.4"></path><path d="m20.1 3.9 1.4-1.4"></path><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"></path><path d="m9.6 14.4 4.8-4.8"></path></svg>`,
+    dance: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.8 11.3 2 22l10.7-3.79"></path><path d="M4 3h.01"></path><path d="M22 8h.01"></path><path d="M15 2h.01"></path><path d="M22 20h.01"></path><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"></path><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"></path><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"></path><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"></path></svg>`,
   };
 
   const dom = {
@@ -35,12 +42,23 @@
     toggleEdit: document.querySelector("#toggleEdit"),
     toggleX2: document.querySelector("#toggleX2"),
     totalBp: document.querySelector("#totalBp"),
+    manualBpCount: document.querySelector("#manualBpCount"),
     startBpInput: document.querySelector("#startBpInput"),
     addManualBp: document.querySelector("#addManualBpBtn"),
     removeManualBp: document.querySelector("#removeManualBpBtn"),
     resetManualBp: document.querySelector("#resetManualBtn"),
     addCategory: document.querySelector("#addCatBtn"),
     newDay: document.querySelector("#newDay"),
+    actionDialog: document.querySelector("#actionDialog"),
+    actionDialogForm: document.querySelector("#actionDialogForm"),
+    actionDialogTitle: document.querySelector("#actionDialogTitle"),
+    actionDialogIcon: document.querySelector("#actionDialogIcon"),
+    actionDialogText: document.querySelector("#actionDialogText"),
+    actionDialogField: document.querySelector("#actionDialogField"),
+    actionDialogInput: document.querySelector("#actionDialogInput"),
+    actionDialogSubmit: document.querySelector("#actionDialogSubmit"),
+    actionDialogClose: document.querySelector("#actionDialogClose"),
+    actionDialogCancel: document.querySelector("#actionDialogCancel"),
   };
 
   const savedState = readJson(STORAGE_KEYS.tasks, {});
@@ -152,27 +170,19 @@
       render();
     });
 
-    dom.addCategory.addEventListener("click", () => {
-      const title = prompt("Название новой категории:")?.trim();
-      if (!title) return;
+    dom.addCategory.addEventListener("click", () => openActionDialog("category"));
+    dom.newDay.addEventListener("click", () => openActionDialog("new-day"));
 
-      appState.categories.push({ id: `cat_${Date.now()}`, title });
-      persistState();
-      render();
+    dom.actionDialogClose.addEventListener("click", closeActionDialog);
+    dom.actionDialogCancel.addEventListener("click", closeActionDialog);
+    dom.actionDialog.addEventListener("click", (event) => {
+      if (event.target === dom.actionDialog) closeActionDialog();
     });
-
-    dom.newDay.addEventListener("click", () => {
-      const message = "Сбросить ежедневный прогресс?\n(Очистит выполненные задачи и ручной счетчик)";
-      if (!confirm(message)) return;
-
-      appState.tasks.forEach((task) => {
-        task.done = false;
-        task.current = 0;
-      });
-      appState.manualBp = 0;
-      persistState();
-      render();
+    dom.actionDialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeActionDialog();
     });
+    dom.actionDialogForm.addEventListener("submit", handleActionDialogSubmit);
 
     document.addEventListener("dragstart", (event) => {
       if (event.target.classList?.contains("category")) {
@@ -186,6 +196,71 @@
     });
   }
 
+  function openActionDialog(mode) {
+    dom.actionDialog.dataset.mode = mode;
+    dom.actionDialogInput.value = "";
+
+    if (mode === "category") {
+      dom.actionDialogTitle.textContent = "Добавить категорию";
+      dom.actionDialogIcon.innerHTML =
+        '<svg viewBox="0 0 24 24"><path d="M4 5h6l2 2h8v12H4V5Z"/><path d="M12 10v6M9 13h6"/></svg>';
+      dom.actionDialogText.textContent = "Создайте новый раздел для группировки заданий.";
+      dom.actionDialogField.hidden = false;
+      dom.actionDialogSubmit.textContent = "Добавить";
+      dom.actionDialogSubmit.classList.remove("is-danger");
+    } else {
+      dom.actionDialogTitle.textContent = "Начать новый день";
+      dom.actionDialogIcon.innerHTML =
+        '<svg viewBox="0 0 24 24"><path d="M4 6v5h5"/><path d="M5.2 16.5A8 8 0 1 0 6 7l-2 4"/><path d="M12 8v4l3 2"/></svg>';
+      dom.actionDialogText.textContent =
+        "Выполненные задачи и ручная корректировка BP будут сброшены. Начальное значение BP сохранится.";
+      dom.actionDialogField.hidden = true;
+      dom.actionDialogSubmit.textContent = "Сбросить прогресс";
+      dom.actionDialogSubmit.classList.add("is-danger");
+    }
+
+    dom.actionDialog.showModal();
+    requestAnimationFrame(() => dom.actionDialog.classList.add("is-visible"));
+
+    if (mode === "category") {
+      requestAnimationFrame(() => dom.actionDialogInput.focus());
+    }
+  }
+
+  function closeActionDialog() {
+    dom.actionDialog.classList.remove("is-visible");
+    window.setTimeout(() => {
+      if (dom.actionDialog.open) dom.actionDialog.close();
+    }, 180);
+  }
+
+  function handleActionDialogSubmit(event) {
+    event.preventDefault();
+    const mode = dom.actionDialog.dataset.mode;
+
+    if (mode === "category") {
+      const title = dom.actionDialogInput.value.trim();
+      if (!title) {
+        dom.actionDialogInput.focus();
+        dom.actionDialogField.classList.add("has-error");
+        window.setTimeout(() => dom.actionDialogField.classList.remove("has-error"), 420);
+        return;
+      }
+
+      appState.categories.push({ id: `cat_${Date.now()}`, title });
+    } else if (mode === "new-day") {
+      appState.tasks.forEach((task) => {
+        task.done = false;
+        task.current = 0;
+      });
+      appState.manualBp = 0;
+    }
+
+    persistState();
+    render();
+    closeActionDialog();
+  }
+
   function updateManualBp(amount) {
     appState.manualBp += amount;
     persistState();
@@ -194,8 +269,8 @@
 
   function syncControls() {
     dom.startBpInput.value = appState.initialBp > 0 ? appState.initialBp : "";
-    dom.addManualBp.textContent = appState.x2Mode ? "+8 BP" : "+4 BP";
-    dom.removeManualBp.textContent = appState.x2Mode ? "-8 BP" : "-4 BP";
+    dom.addManualBp.textContent = appState.x2Mode ? "+8" : "+4";
+    dom.removeManualBp.textContent = appState.x2Mode ? "-8" : "-4";
 
     dom.toggleX2.classList.toggle("is-active", appState.x2Mode);
     dom.toggleFav.classList.toggle("is-active", appState.showFavoritesOnly);
@@ -216,11 +291,12 @@
     }, 0);
 
     const grandTotal = appState.initialBp + appState.manualBp + taskTotal;
+    syncManualBpCount();
     const previousTotal = dom.totalBp.dataset.value;
 
     if (previousTotal === undefined) {
       dom.totalBp.dataset.value = grandTotal;
-      dom.totalBp.textContent = `${grandTotal} BP`;
+      renderOdometer(grandTotal);
       return;
     }
 
@@ -230,29 +306,74 @@
     animateTotal(previousTotal, grandTotal);
   }
 
+  function syncManualBpCount() {
+    if (!appState.manualBp) {
+      dom.manualBpCount.textContent = "Без коррекции";
+      dom.manualBpCount.classList.remove("is-negative");
+      return;
+    }
+
+    const count = Math.abs(appState.manualBp / MANUAL_BP_STEP);
+    const sign = appState.manualBp > 0 ? "+" : "−";
+    dom.manualBpCount.textContent = `${sign}4 × ${formatManualCount(count)}`;
+    dom.manualBpCount.classList.toggle("is-negative", appState.manualBp < 0);
+  }
+
+  function formatManualCount(count) {
+    return Number.isInteger(count) ? String(count) : count.toFixed(1);
+  }
+
   function animateTotal(previousTotal, nextTotal) {
-    const outgoing = createElement("span", {
-      className: "score-badge__value score-badge__value--outgoing",
-      textContent: `${previousTotal} BP`,
-    });
-    const incoming = createElement("span", {
-      className: "score-badge__value score-badge__value--incoming",
-      textContent: `${nextTotal} BP`,
+    const oldValue = String(previousTotal);
+    const newValue = String(nextTotal);
+    const width = Math.max(oldValue.length, newValue.length);
+    const oldDigits = oldValue.padStart(width, " ");
+    const newDigits = newValue.padStart(width, " ");
+    const direction = nextTotal >= Number(previousTotal) ? 1 : -1;
+
+    const slots = [...newDigits].map((digit, index) => {
+      const slot = createElement("span", {
+        className: `odometer__slot${digit === " " ? " is-empty" : ""}`,
+      });
+      const reel = createElement("span", { className: "odometer__reel" });
+      slot.style.setProperty("--delay", `${(width - index - 1) * 42}ms`);
+      slot.classList.add(direction > 0 ? "is-rolling-up" : "is-rolling-down");
+      const outgoing = createElement("span", {
+        className: "odometer__digit odometer__digit--old",
+        textContent: oldDigits[index],
+      });
+      const incoming = createElement("span", {
+        className: "odometer__digit odometer__digit--new",
+        textContent: digit,
+      });
+      reel.append(...(direction > 0 ? [outgoing, incoming] : [incoming, outgoing]));
+      slot.append(reel);
+      return slot;
     });
 
-    dom.totalBp.classList.remove("is-flipping");
-    dom.totalBp.replaceChildren(outgoing, incoming);
-    void dom.totalBp.offsetWidth;
-    dom.totalBp.classList.add("is-flipping");
+    dom.totalBp.replaceChildren(
+      ...slots,
+      createElement("span", { className: "odometer__unit", textContent: "BP" }),
+    );
 
-    incoming.addEventListener(
+    slots[0]?.addEventListener(
       "animationend",
       () => {
-        if (Number(dom.totalBp.dataset.value) !== nextTotal) return;
-        dom.totalBp.classList.remove("is-flipping");
-        dom.totalBp.textContent = `${nextTotal} BP`;
+        if (Number(dom.totalBp.dataset.value) === nextTotal) renderOdometer(nextTotal);
       },
       { once: true },
+    );
+  }
+
+  function renderOdometer(value) {
+    const slots = [...String(value)].map((digit) => {
+      const slot = createElement("span", { className: "odometer__slot" });
+      slot.append(createElement("span", { className: "odometer__digit", textContent: digit }));
+      return slot;
+    });
+    dom.totalBp.replaceChildren(
+      ...slots,
+      createElement("span", { className: "odometer__unit", textContent: "BP" }),
     );
   }
 
@@ -373,9 +494,9 @@
   function renderFavoriteButton(task) {
     const button = createElement("button", {
       className: `task-card__favorite${task.fav ? " is-active" : ""}`,
-      textContent: "★",
       type: "button",
       title: "Добавить в избранное",
+      innerHTML: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>`,
     });
 
     button.addEventListener("click", (event) => {

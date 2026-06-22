@@ -257,11 +257,13 @@ input[type="number"] {
 
 .button {
   min-height: 36px;
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   color: var(--text);
-  font-size: 14px;
-  background: rgba(36, 36, 38, 0.92);
+  font-size: .82rem;
+  font-weight: 600;
+  background: var(--panel-bg);
   border: 1px solid var(--border);
+  padding: 0 .85rem;
   transition:
     color 0.2s,
     background 0.2s,
@@ -271,7 +273,9 @@ input[type="number"] {
 }
 
 .button:hover {
-  border-color: var(--accent);
+  color: var(--accent);
+  border-color: rgba(255, 122, 47, .25);
+  background: rgba(255, 122, 47, .06);
 }
 
 .button:active {
@@ -719,5 +723,650 @@ input[type="number"] {
   .task-card__bp,
   .task-card__counter {
     grid-column: 3;
+  }
+}
+
+/* Floating control dock */
+.app-toolbar {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  top: auto;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: 252px;
+  margin: 0;
+  gap: 10px;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.score-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr) 34px;
+  width: 252px;
+  padding: 8px;
+  gap: 7px;
+  overflow: visible;
+  pointer-events: auto;
+  background: rgba(31, 31, 33, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-top: 1px solid rgba(255, 122, 47, 0.55);
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  backdrop-filter: blur(18px);
+}
+
+.score-panel::before {
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 82% 0, rgba(255, 122, 47, 0.15), transparent 38%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 40%);
+}
+
+.score-total {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  min-height: 48px;
+  padding: 0 7px 7px;
+  gap: 10px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.score-total__info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.score-total .score-panel__label {
+  color: #d5d5d8;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  letter-spacing: 0.04em;
+}
+
+.score-total__manual {
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.score-total__manual.is-negative {
+  color: var(--danger);
+}
+
+.score-panel__label {
+  font-size: 8px;
+  letter-spacing: 0.11em;
+}
+
+.score-panel__field {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+}
+
+.score-input {
+  height: 32px;
+  padding: 0 7px;
+  font-size: 12px;
+  background: rgba(10, 10, 11, 0.62);
+}
+
+.manual-bp-control {
+  grid-column: 2;
+  grid-row: 2;
+  gap: 5px;
+  padding: 0;
+}
+
+.manual-bp-control__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  gap: 5px;
+}
+
+.button.manual-bp-control__button {
+  width: 100%;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  font-size: 12px;
+}
+
+.score-panel .button--danger {
+  grid-column: 3;
+  grid-row: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 32px;
+  margin: 13px 0 0;
+  padding: 0;
+}
+
+.score-panel .button--danger svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transform: translateY(1px);
+}
+
+.score-badge {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 30px;
+  overflow: visible;
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  perspective: none;
+}
+
+.odometer__slot {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 30px;
+  overflow: hidden;
+  color: #91f5b3;
+  background: linear-gradient(180deg, #101111, #191b1a 48%, #0d0e0d 52%, #151716);
+  border: 1px solid rgba(145, 245, 179, 0.13);
+  border-right-width: 0;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 -7px 12px rgba(0, 0, 0, 0.25) inset;
+}
+
+.odometer__slot:first-child {
+  /* border-radius: 5px 0 0 5px; */
+}
+
+.odometer__slot.is-empty {
+  width: 0;
+  border: 0;
+}
+
+.odometer__reel,
+.odometer__digit {
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.odometer__reel {
+  position: absolute;
+  inset: 0;
+}
+
+.odometer__slot.is-rolling-up .odometer__reel {
+  animation: odometerRollUp 0.56s cubic-bezier(0.22, 0.78, 0.22, 1) var(--delay) both;
+}
+
+.odometer__slot.is-rolling-down .odometer__reel {
+  transform: translateY(-30px);
+  animation: odometerRollDown 0.56s cubic-bezier(0.22, 0.78, 0.22, 1) var(--delay) both;
+}
+
+.odometer__unit {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 5px;
+  color: rgba(145, 245, 179, 0.7);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  background: #151716;
+  border: 1px solid rgba(145, 245, 179, 0.13);
+  /* border-radius: 0 5px 5px 0; */
+}
+
+.toolbar-actions {
+  display: flex;
+  flex-direction: column;
+  width: 42px;
+  gap: 6px;
+  align-items: stretch;
+  pointer-events: auto;
+}
+
+.toolbar-action.button {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  min-height: 42px;
+  padding: 0;
+  color: #a9a9ae;
+  background: rgba(31, 31, 33, 0.94);
+  border-color: rgba(255, 255, 255, 0.13);
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(14px);
+}
+
+.toolbar-action svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.toolbar-action__x2 text {
+  fill: currentColor;
+  stroke: none;
+  font-family: "Geist", sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+#toggleFav svg {
+  fill: currentColor;
+}
+
+.toolbar-action.button.is-active,
+#toggleX2.is-active {
+  color: var(--accent);
+  background: rgba(255, 122, 47, 0.16);
+  border-color: var(--accent);
+}
+
+.toolbar-action.button:hover,
+.toolbar-action.button:focus-visible {
+  color: var(--accent);
+  background: rgba(255, 122, 47, 0.13);
+  border-color: rgba(255, 122, 47, 0.7);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 122, 47, 0.1) inset;
+  transform: translateX(-2px);
+}
+
+.toolbar-action::after {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 10px);
+  padding: 7px 9px;
+  color: #ededee;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  content: attr(data-tooltip);
+  background: #111112;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  transform: translate(6px, -50%);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.toolbar-action:hover::after,
+.toolbar-action:focus-visible::after {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.task-card__favorite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+.task-card__favorite svg {
+  display: block;
+  width: 13.5px;
+  height: 13.5px;
+  transition:
+    color var(--transition),
+    transform var(--transition),
+    filter var(--transition);
+}
+
+.task-card__favorite:hover,
+.task-card__favorite:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
+.task-card__favorite:hover svg,
+.task-card__favorite:focus-visible svg {
+  filter: drop-shadow(0 0 5px rgba(255, 122, 47, 0.35));
+  transform: scale(1.12);
+}
+
+.action-dialog {
+  width: min(92vw, 390px);
+  max-height: min(86vh, 410px);
+  padding: 0;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  opacity: 0;
+  transform: translateY(14px) scale(0.975);
+  transition:
+    opacity 0.18s ease,
+    transform 0.22s cubic-bezier(0.22, 0.78, 0.22, 1);
+}
+
+.action-dialog.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.action-dialog::backdrop {
+  background: rgba(5, 5, 6, 0.78);
+  opacity: 0;
+  backdrop-filter: blur(5px);
+  transition: opacity 0.18s ease;
+}
+
+.action-dialog.is-visible::backdrop {
+  opacity: 1;
+}
+
+.action-dialog__surface {
+  overflow: hidden;
+  background: #19191a;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.58);
+}
+
+.action-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 58px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-dialog__heading {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+.action-dialog__heading h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.action-dialog__icon {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  color: var(--accent);
+}
+
+.action-dialog__icon svg,
+.action-dialog__close svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.action-dialog__close {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+  color: #929296;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition);
+}
+
+.action-dialog__close:hover {
+  color: var(--accent);
+  background: rgba(255, 122, 47, 0.08);
+  border-color: rgba(255, 122, 47, 0.45);
+}
+
+.action-dialog__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 104px;
+  padding: 17px 16px;
+  gap: 15px;
+}
+
+.action-dialog__text {
+  margin: 0;
+  color: #89898e;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.action-dialog__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #77777c;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.action-dialog__field[hidden] {
+  display: none;
+}
+
+.action-dialog__field input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  color: #ededee;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  background: #111112;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  outline: none;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.action-dialog__field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 122, 47, 0.1);
+}
+
+.action-dialog__field.has-error input {
+  border-color: var(--danger);
+  animation: dialogFieldShake 0.36s ease;
+}
+
+.action-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 16px;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.012);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-dialog__button {
+  min-height: 32px;
+  padding: 0 13px;
+  color: #aaaab0;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.action-dialog__button:hover {
+  transform: translateY(-1px);
+}
+
+.action-dialog__button--ghost {
+  background: transparent;
+}
+
+.action-dialog__button--ghost:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.action-dialog__button--primary {
+  color: #fff;
+  background: #874524;
+  border-color: #874524;
+}
+
+.action-dialog__button--primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.action-dialog__button--primary.is-danger {
+  background: rgba(255, 77, 77, 0.22);
+  border-color: rgba(255, 77, 77, 0.5);
+}
+
+.action-dialog__button--primary.is-danger:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+@keyframes dialogFieldShake {
+  0%,
+  100% { transform: translateX(0); }
+  30% { transform: translateX(-5px); }
+  65% { transform: translateX(5px); }
+}
+
+@keyframes odometerRollUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-30px); }
+}
+
+@keyframes odometerRollDown {
+  from { transform: translateY(-30px); }
+  to { transform: translateY(0); }
+}
+
+@media (max-width: 520px) {
+  .action-dialog__header {
+    min-height: 54px;
+    padding: 11px 14px;
+  }
+
+  .action-dialog__heading h2 {
+    font-size: 15px;
+  }
+
+  .action-dialog__body {
+    min-height: 96px;
+    padding: 15px 14px;
+  }
+
+  .action-dialog__footer {
+    padding: 9px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .odometer__slot .odometer__reel {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-toolbar {
+    right: 10px;
+    bottom: 10px;
+    width: 224px;
+    align-items: flex-end;
+  }
+
+  .score-panel {
+    grid-template-columns: 66px minmax(0, 1fr) 32px;
+    width: 224px;
+  }
+
+  .score-total,
+  .score-panel__field,
+  .manual-bp-control,
+  .score-panel .button--danger {
+    grid-row: auto;
+  }
+
+  .score-total {
+    grid-column: 1 / -1;
+  }
+
+  .score-panel__field {
+    grid-column: 1;
+  }
+
+  .score-panel .manual-bp-control {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .score-panel .button--danger {
+    grid-column: 3;
+  }
+
+  .toolbar-actions {
+    width: 38px;
+  }
+
+  .toolbar-action.button {
+    width: 38px;
+    height: 38px;
+    min-height: 38px;
   }
 }

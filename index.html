@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Фарм BP</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -17,69 +16,93 @@
   <body>
     <main class="app-shell">
       <section class="app-toolbar" aria-label="Управление прогрессом">
-        <div class="score-panel">
-          <div class="manual-bp-control">
-            <span class="score-panel__label">Убрать</span>
-            <button
-              id="removeManualBpBtn"
-              class="button button--success manual-bp-control__button"
-              type="button"
-            >
-              -4 BP
-            </button>
-          </div>
-
-          <label class="score-panel__field" aria-label="Начальное значение BP">
-            <input
-              id="startBpInput"
-              class="score-input"
-              type="number"
-              placeholder="0"
-              inputmode="numeric"
-            />
-          </label>
-
-          <div class="manual-bp-control">
-            <span class="score-panel__label">Добавить</span>
-            <button
-              id="addManualBpBtn"
-              class="button button--success manual-bp-control__button"
-              type="button"
-            >
-              +4 BP
-            </button>
-          </div>
-
-          <div class="score-total">
-            <span class="score-panel__label">Итого</span>
-            <div id="totalBp" class="score-badge" aria-live="polite">0 BP</div>
-          </div>
-
-          <button
-            id="resetManualBtn"
-            class="button button--danger"
-            type="button"
-            title="Сбросить только ручной счетчик"
-            aria-label="Сбросить ручной счетчик"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4.5 8.5V4.75m0 0h3.75m-3.75 0 2.7 2.7A7.5 7.5 0 1 1 4.9 15" />
-              <path d="M9 12h6" />
+        <div class="toolbar-actions" aria-label="Фильтры и действия">
+          <button id="toggleX2" class="button toolbar-action" type="button" aria-label="Двойные BP" data-tooltip="Двойные BP">
+            <svg class="toolbar-action__x2" viewBox="0 0 24 24" aria-hidden="true">
+              <text x="12" y="16.5" text-anchor="middle">X2</text>
             </svg>
+          </button>
+          <button id="toggleFav" class="button toolbar-action" type="button" aria-label="Только избранное" data-tooltip="Только избранное">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>
+          </button>
+          <button id="toggleEdit" class="button toolbar-action" type="button" aria-label="Редактировать" data-tooltip="Редактировать">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l11-11-4-4L4 16v4Z" /><path d="m13.5 6.5 4 4" /><path d="M12 20h8" /></svg>
+          </button>
+          <button id="newDay" class="button toolbar-action" type="button" aria-label="Новый день" data-tooltip="Новый день">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6v5h5" /><path d="M5.2 16.5A8 8 0 1 0 6 7l-2 4" /><path d="M12 8v4l3 2" /></svg>
+          </button>
+          <button id="addCatBtn" class="button toolbar-action" type="button" aria-label="Добавить категорию" data-tooltip="Добавить категорию">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6l2 2h8v12H4V5Z" /><path d="M12 10v6M9 13h6" /></svg>
           </button>
         </div>
 
-        <div class="toolbar-actions" aria-label="Фильтры и действия">
-          <button id="toggleX2" class="button" type="button">X2</button>
-          <button id="toggleFav" class="button" type="button">★ Избранное</button>
-          <button id="toggleEdit" class="button" type="button">✎ Редактировать</button>
-          <button id="newDay" class="button" type="button">↺ Новый день</button>
-          <button id="addCatBtn" class="button" type="button">+ Категория</button>
+        <div class="score-panel">
+          <div class="score-total">
+            <div class="score-total__info">
+              <span class="score-panel__label">Итого BP</span>
+              <span id="manualBpCount" class="score-total__manual">Без коррекции</span>
+            </div>
+            <div id="totalBp" class="score-badge" aria-live="polite">0</div>
+          </div>
+
+          <label class="score-panel__field" aria-label="Начальное значение BP">
+            <span class="score-panel__label">Старт</span>
+            <input id="startBpInput" class="score-input" type="number" placeholder="0" inputmode="numeric" />
+          </label>
+
+          <div class="manual-bp-control">
+            <span class="score-panel__label">Коррекция</span>
+            <div class="manual-bp-control__actions">
+              <button id="removeManualBpBtn" class="button button--success manual-bp-control__button" type="button">-4</button>
+              <button id="addManualBpBtn" class="button button--success manual-bp-control__button" type="button">+4</button>
+            </div>
+          </div>
+
+          <button id="resetManualBtn" class="button button--danger" type="button" title="Сбросить только ручной счётчик" aria-label="Сбросить ручной счётчик">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m7.5 19.5-4-4a2.1 2.1 0 0 1 0-3L12 4l7 7-8.5 8.5a2.1 2.1 0 0 1-3 0Z" />
+              <path d="m9 9 6 6" />
+              <path d="M13 20h8" />
+            </svg>
+          </button>
         </div>
       </section>
 
       <section id="board" class="task-board" aria-label="Список заданий"></section>
     </main>
+
+    <dialog id="actionDialog" class="action-dialog" aria-labelledby="actionDialogTitle">
+      <form id="actionDialogForm" class="action-dialog__surface" method="dialog">
+        <header class="action-dialog__header">
+          <div class="action-dialog__heading">
+            <span id="actionDialogIcon" class="action-dialog__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3v18M3 12h18" />
+              </svg>
+            </span>
+            <h2 id="actionDialogTitle">Добавить категорию</h2>
+          </div>
+          <button id="actionDialogClose" class="action-dialog__close" type="button" aria-label="Закрыть">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+
+        <div class="action-dialog__body">
+          <p id="actionDialogText" class="action-dialog__text"></p>
+          <label id="actionDialogField" class="action-dialog__field">
+            <span>Название категории</span>
+            <input id="actionDialogInput" type="text" maxlength="60" autocomplete="off" placeholder="Введите название..." />
+          </label>
+        </div>
+
+        <footer class="action-dialog__footer">
+          <button id="actionDialogCancel" class="action-dialog__button action-dialog__button--ghost" type="button">Отмена</button>
+          <button id="actionDialogSubmit" class="action-dialog__button action-dialog__button--primary" type="submit">
+            Добавить
+          </button>
+        </footer>
+      </form>
+    </dialog>
 
     <script src="app.js" defer></script>
   </body>
